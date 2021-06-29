@@ -277,6 +277,15 @@ class Solver {
                     "callback": `geetest_${Date.now()}`
                 }
 
+                console.log(`https://${this.api_server}/ajax.php`, {
+                    headers: this.headers,
+                    params: params,
+                    jar: cookieJar,
+                    withCredentials: true,
+                    proxy: this.proxy
+                })
+
+                
                 let resp = await axios.get(`https://${this.api_server}/ajax.php`, {
                     headers: this.headers,
                     params: params,
