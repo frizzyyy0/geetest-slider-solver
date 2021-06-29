@@ -265,7 +265,7 @@ class Solver {
                 }
 
 
-                console.log(`[TIME: ${Date.now()}] - [LEVEL: INFO] - [CONTENT: Sent captcha loading request ${this.challengeID}]`)
+                // console.log(`[TIME: ${Date.now()}] - [LEVEL: INFO] - [CONTENT: Sent captcha loading request ${this.challengeID}]`)
 
                 params = {
                     "gt": this.siteKey,
@@ -285,8 +285,7 @@ class Solver {
                     proxy: this.proxy
                 })
 
-                console.log(resp.data)
-                console.log(`[TIME: ${Date.now()}] - [LEVEL: INFO] - [CONTENT: Sent captcha click request]`)
+                console.log(`[TIME: ${Date.now()}] - [LEVEL: INFO] - [CONTENT: Sent captcha click request - ${resp.data}]`)
                 //console.log(resp)
                 params = {
                     "is_next": "true",
