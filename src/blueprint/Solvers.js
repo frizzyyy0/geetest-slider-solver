@@ -173,8 +173,11 @@ router.post('/solve',token_required, async function(req, res) {
 
         solver = new Solver(solverID,proxy);
         if(proxy != "" && proxy != null && proxy != "N/A" && solver.proxy != proxy) {
+            console.log("Changing",proxy)
             await solver.change_proxy(proxy);
-        } else{}
+        } else{
+            console.log("Req",proxy,solver.proxy)
+        }
 
 
         await solver.updateCaptchaTask(user_api_key,company_api_key,task_id,site_url,api_server,site_key,challengeID,cookies,headers)

@@ -28,36 +28,6 @@ key.setOptions({
 class Solver {
     constructor (solverID,proxy) {
         try {
-            switch (proxy) {
-                case "":
-                case " ":
-                case null:
-                case undefined:
-                    this.proxyInfo = null;
-                    this.proxyLength = null;
-                    this.proxyUsername = null;
-                    this.proxyPassword = null;
-                    break
-                default:
-                    this.proxy = proxy
-                    this.proxyInfo = proxy.split(":");
-                    this.proxyLength = (this.proxyInfo).length;
-                    switch (this.proxyLength) {
-                        case 4:
-                            this.proxyUsername = this.proxyInfo[2];
-                            this.proxyPassword = this.proxyInfo[3];
-                            break
-                        case 2:
-                            this.proxyUsername = null;
-                            this.proxyPassword = null;
-                            break
-                        case 0:
-                            this.proxyPassword = null;
-                            this.proxyUsername = null;
-                            break
-                    }
-                    break
-            }
             // current information
             this.currentUrl = null;
             this.solverID = solverID;
@@ -130,10 +100,10 @@ class Solver {
         try {
             let proxy_split = proxy.replace("//","").split(":")
             if(proxy_split.length >= 4) {
-                let ip = proxy_split[0]
-                let port = proxy_split[1]
-                let user = proxy_split[2]
-                let password = proxy_split[3]
+                let ip = proxy_split[1]
+                let port = proxy_split[2]
+                let user = proxy_split[3]
+                let password = proxy_split[4]
                 let proxy_formatted = {
                     host: ip,
                     port: port,
@@ -277,14 +247,13 @@ class Solver {
                     "callback": `geetest_${Date.now()}`
                 }
 
-                
-                let resp = await axios.get(`https://${this.api_server}/ajax.php`, {
+                let resp = await axios.get(`https://api-na.geetest.com/ajax.php`,{
                     headers: this.headers,
                     params: params,
-                    jar: cookieJar,
+                    //jar: cookieJar,
                     withCredentials: true,
                     proxy: this.proxy
-                })
+                });
 
                 console.log(`[TIME: ${Date.now()}] - [LEVEL: INFO] - [CONTENT: Sent captcha click request - ${resp.data}]`)
                 //console.log(resp)
@@ -395,13 +364,13 @@ class Solver {
                 }
             }
         } catch (error) {
-            console.log(error.stack)
-            console.log(error.data)
-            console.log(error.response)
+            console.log(error)
+            // console.log(error.data)
+            // console.log(error.response)
             //await this.update_task_status_failed()
             this.initial = false;
-            console.log(`[TIME: ${Date.now()}] - [LEVEL: ERROR] - [CONTENT: ${error.stack}]`)
-            logTaskErrors(uuid4(),this.solverID,this.taskID,this.user_api_key,this.company_api_key,error.stack)
+            //console.log(`[TIME: ${Date.now()}] - [LEVEL: ERROR] - [CONTENT: ${error.stack}]`)
+            //logTaskErrors(uuid4(),this.solverID,this.taskID,this.user_api_key,this.company_api_key,error.stack)
         }
     }
 };
