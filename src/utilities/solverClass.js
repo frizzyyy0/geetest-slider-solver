@@ -130,10 +130,10 @@ class Solver {
         try {
             let proxy_split = proxy.replace("//","").split(":")
             if(proxy_split.length >= 4) {
-                let ip = proxy_split[1]
-                let port = proxy_split[2]
-                let user = proxy_split[3]
-                let password = proxy_split[4]
+                let ip = proxy_split[0]
+                let port = proxy_split[1]
+                let user = proxy_split[2]
+                let password = proxy_split[3]
                 let proxy_formatted = {
                     host: ip,
                     port: port,
@@ -276,14 +276,6 @@ class Solver {
                     "w": "",
                     "callback": `geetest_${Date.now()}`
                 }
-
-                console.log(`https://${this.api_server}/ajax.php`, {
-                    headers: this.headers,
-                    params: params,
-                    jar: cookieJar,
-                    withCredentials: true,
-                    proxy: this.proxy
-                })
 
                 
                 let resp = await axios.get(`https://${this.api_server}/ajax.php`, {
