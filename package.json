@@ -47,6 +47,7 @@
     "screenshot-desktop": "^1.12.2",
     "sharp": "^0.26.3",
     "socketio": "^1.0.0",
+    "tough-cookie": "^4.0.0",
     "url-validator": "^2.0.3",
     "uuid4": "^2.0.2",
     "xvfb": "^0.4.0"
